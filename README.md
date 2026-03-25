@@ -17,6 +17,6 @@ This project was inspired by Pastebin, but aims to provide useful features for d
 
 | Layer    | Technology       |
 | -------- | ---------------- |
-| Backend  | Python (FastAPI) |
+| Backend  | GO (Gin)         |
 | Frontend | React            |
 | Database | Supabase         |
