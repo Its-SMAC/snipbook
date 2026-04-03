@@ -15,7 +15,7 @@ async def get_snips() -> list[SnipResponse]:
 
 @router.get("/snip/{id}")
 async def get_snip(id: int) -> SnipResponse:
-    """ A definir (back ou front).
+    """
         Ir na bd
         recolher o dado
         entregar dados formatados
@@ -32,7 +32,7 @@ async def post_snip(snip: SnipCreate) -> SnipResponse:
     ...
 
 @router.patch("/snip/{id}")
-async def update_snip(id: int, data: SnipUpdate):
+async def update_snip(id: int, data: SnipUpdate) -> SnipResponse :
     """
         Recebe dados para atualizar
         valida e formata

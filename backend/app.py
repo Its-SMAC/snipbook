@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from snip import snip
+from routes.snip import snip
 
 app = FastAPI()
 
