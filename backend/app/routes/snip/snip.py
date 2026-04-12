@@ -1,50 +1,53 @@
-from fastapi import APIRouter
+from db.db import get_db
+from fastapi import APIRouter, Depends, HTTPException
+from sqlalchemy.orm import Session
 
 from .schema import SnipCreate, SnipResponse, SnipUpdate
 
 router = APIRouter(tags=["snip"])
 
 @router.get("/snips")
-async def get_snips() -> list[SnipResponse]:
-    """
-        Ir na base de dados
-        recolher dados
-        entregar dados formatados
-    """
-    ...
+async def get_snips(session: Session = Depends(get_db)) -> list[SnipResponse]:
+    with session as db:
+        snips = db.query().all()
+        if snips is None:
+            raise HTTPException(status_code=404, detail="Snips not found")
+        return [SnipResponse.from_orm(snip) for snip in snips]
 
 @router.get("/snip/{id}")
-async def get_snip(id: int) -> SnipResponse:
-    """
-        Ir na bd
-        recolher o dado
-        entregar dados formatados
-    """
-    ...
+async def get_snip(id: int, session: Session = Depends(get_db)) -> SnipResponse:
+    with session as db:
+        snip = db.query().filter_by(id=id).first()
+        if snip is None:
+            raise HTTPException(status_code=404, detail="Snip not found")
+        return SnipResponse.from_orm(snip)
 
 @router.post("/snip")
-async def post_snip(snip: SnipCreate) -> SnipResponse:
-    """
-        Recebe dados
-        valida e formata
-        introduz na bd
-    """
-    ...
+async def post_snip(snip: SnipCreate, session: Session = Depends(get_db)) -> SnipResponse:
+    with session as db:
+        db.add(snip)
+        db.commit()
+        db.refresh(snip)
+        return SnipResponse.from_orm(snip)
 
 @router.patch("/snip/{id}")
-async def update_snip(id: int, data: SnipUpdate) -> SnipResponse :
-    """
-        Recebe dados para atualizar
-        valida e formata
-        reescreve na bd
-    """
-    ...
+async def update_snip(id: int, data: SnipUpdate, session: Session = Depends(get_db)) -> SnipResponse:
+    with session as db:
+        snip = db.query().filter_by(id=id).first()
+        if snip is None:
+            raise HTTPException(status_code=404, detail="Snip not found")
+        for key, value in data.dict(exclude_unset=True).items():
+            setattr(snip, key, value)
+        db.commit()
+        db.refresh(snip)
+        return SnipResponse.from_orm(snip)
 
 @router.delete("/snip/{id}")
-async def delete_snip(id:int) -> dict[str,str]:
-    """
-        recebe id
-        valida se ainda nao foi apagado e se existe
-        deleta e retorna certificacao
-    """
-    return {"state":"Deleted"}
+async def delete_snip(id: int, session: Session = Depends(get_db)) -> dict[str, str]:
+    with session as db:
+        snip = db.query().filter_by(id=id).first()
+        if snip is None:
+            raise HTTPException(status_code=404, detail="Snip not found")
+        db.delete(snip)
+        db.commit()
+        return {"state": "Deleted"}

@@ -17,6 +17,9 @@ class SnipInDB(SnipBase):
 
 class SnipResponse(SnipBase):
     id:int
+    
+    class Config:
+        orm_mode = True
 
 class SnipUpdate(BaseModel):
     title: str | None = None
