@@ -1,7 +1,17 @@
 from sqlalchemy import create_engine
+from sqlalchemy.engine import URL
 from sqlalchemy.orm import declarative_base, sessionmaker
 
-engine = create_engine("sqlite:///snipbook.db", connect_args={"check_same_thread": False})
+url = URL.create(
+    "postgresql+psycopg2",
+    username="casaos",
+    password="casaos",
+    host="192.168.1.200",
+    port=5432,
+    database="SnipBook",
+)
+
+engine = create_engine(url)
 SessionLocal = sessionmaker(bind=engine)
 
 

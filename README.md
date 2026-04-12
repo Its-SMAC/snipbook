@@ -1,5 +1,6 @@
 # SnipBook
-A simple web application to save, manage, and share code snippets with your team or community.
+
+A simple local web application to save and manage code snippets.
 
 ## About the Project
 
@@ -7,16 +8,22 @@ This project was inspired by Pastebin, but aims to provide useful features for d
 
 ## Features
 
+### v1
+
 - Save code snippets
-- Share snippets via link
-- Syntax highlighting
-- Public / private snippets (planned)
-- User accounts (planned)
+- Syntax highlight
+
+### v2 (future)
+
+- Deploy app
+- Add comments
+- Share snips
+- up-vote feature
 
 ## Tech Stack
 
-| Layer    | Technology       |
-| -------- | ---------------- |
-| Backend  | Python (FastAPI) |
-| Frontend | React            |
-| Database | Supabase         |
+| Layer    | Technology           |
+| -------- | -------------------- |
+| Backend  | Python (FastAPI)     |
+| Frontend | React (Vite)         |
+| Database | Localhost (postgres) |
