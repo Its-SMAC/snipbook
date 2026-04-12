@@ -52,3 +52,6 @@ dist-ssr
 # Excalidraw
 *.excalidraw
 *.excalidraw.json
+
+# V2 features
+comment/
