@@ -3,10 +3,12 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from .schema import SnipCreate, SnipResponse, SnipUpdate
+from ..rate_limit import limiter
 
 router = APIRouter(tags=["snip"])
 
 @router.get("/snips")
+@limiter.limit("10/minute")
 async def get_snips(session: Session = Depends(get_db)) -> list[SnipResponse]:
     with session as db:
         snips = db.query().all()
@@ -15,6 +17,7 @@ async def get_snips(session: Session = Depends(get_db)) -> list[SnipResponse]:
         return [SnipResponse.from_orm(snip) for snip in snips]
 
 @router.get("/snip/{id}")
+@limiter.limit("10/minute")
 async def get_snip(id: int, session: Session = Depends(get_db)) -> SnipResponse:
     with session as db:
         snip = db.query().filter_by(id=id).first()
@@ -23,6 +26,7 @@ async def get_snip(id: int, session: Session = Depends(get_db)) -> SnipResponse:
         return SnipResponse.from_orm(snip)
 
 @router.post("/snip")
+@limiter.limit("5/minute")
 async def post_snip(snip: SnipCreate, session: Session = Depends(get_db)) -> SnipResponse:
     with session as db:
         db.add(snip)
@@ -31,6 +35,7 @@ async def post_snip(snip: SnipCreate, session: Session = Depends(get_db)) -> Sni
         return SnipResponse.from_orm(snip)
 
 @router.patch("/snip/{id}")
+@limiter.limit("5/minute")
 async def update_snip(id: int, data: SnipUpdate, session: Session = Depends(get_db)) -> SnipResponse:
     with session as db:
         snip = db.query().filter_by(id=id).first()
@@ -43,6 +48,7 @@ async def update_snip(id: int, data: SnipUpdate, session: Session = Depends(get_
         return SnipResponse.from_orm(snip)
 
 @router.delete("/snip/{id}")
+@limiter.limit("5/minute")
 async def delete_snip(id: int, session: Session = Depends(get_db)) -> dict[str, str]:
     with session as db:
         snip = db.query().filter_by(id=id).first()

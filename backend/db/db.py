@@ -17,7 +17,7 @@ url = URL.create(
 )
 
 engine = create_engine(url)
-SessionLocal = sessionmaker(bind=engine)
+Session = sessionmaker(bind=engine)
 
 
 class Base(declarative_base()):
@@ -28,7 +28,7 @@ def create_tables():
 
 
 def get_db():
-    db = SessionLocal()
+    db = Session()
     try:
         yield db
     finally:
