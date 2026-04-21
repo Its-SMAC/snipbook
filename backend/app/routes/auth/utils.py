@@ -22,7 +22,7 @@ def verify_password(hashed_password: str, password: str) -> bool:
     try:
         return ph.verify(hashed_password, password)
     except (VerifyMismatchError, VerificationError, InvalidHashError):
-        return False  # nunca deixar a exceção vazar — só retorna False
+        return False
 
 def create_access_token(username: str) -> str:
     payload = {

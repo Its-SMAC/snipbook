@@ -1,4 +1,4 @@
-from db.db import get_db
+from db import db
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
@@ -9,7 +9,7 @@ router = APIRouter(tags=["snip"])
 
 @router.get("/snips")
 @limiter.limit("10/minute")
-async def get_snips(session: Session = Depends(get_db)) -> list[SnipResponse]:
+async def get_snips(session: Session = Depends(db.get_db)) -> list[SnipResponse]:
     with session as db:
         snips = db.query().all()
         if snips is None:
@@ -18,7 +18,7 @@ async def get_snips(session: Session = Depends(get_db)) -> list[SnipResponse]:
 
 @router.get("/snip/{id}")
 @limiter.limit("10/minute")
-async def get_snip(id: int, session: Session = Depends(get_db)) -> SnipResponse:
+async def get_snip(id: int, session: Session = Depends(db.get_db)) -> SnipResponse:
     with session as db:
         snip = db.query().filter_by(id=id).first()
         if snip is None:
@@ -27,7 +27,7 @@ async def get_snip(id: int, session: Session = Depends(get_db)) -> SnipResponse:
 
 @router.post("/snip")
 @limiter.limit("5/minute")
-async def post_snip(snip: SnipCreate, session: Session = Depends(get_db)) -> SnipResponse:
+async def post_snip(snip: SnipCreate, session: Session = Depends(db.get_db)) -> SnipResponse:
     with session as db:
         db.add(snip)
         db.commit()
@@ -36,7 +36,7 @@ async def post_snip(snip: SnipCreate, session: Session = Depends(get_db)) -> Sni
 
 @router.patch("/snip/{id}")
 @limiter.limit("5/minute")
-async def update_snip(id: int, data: SnipUpdate, session: Session = Depends(get_db)) -> SnipResponse:
+async def update_snip(id: int, data: SnipUpdate, session: Session = Depends(db.get_db)) -> SnipResponse:
     with session as db:
         snip = db.query().filter_by(id=id).first()
         if snip is None:
@@ -49,7 +49,7 @@ async def update_snip(id: int, data: SnipUpdate, session: Session = Depends(get_
 
 @router.delete("/snip/{id}")
 @limiter.limit("5/minute")
-async def delete_snip(id: int, session: Session = Depends(get_db)) -> dict[str, str]:
+async def delete_snip(id: int, session: Session = Depends(db.get_db)) -> dict[str, str]:
     with session as db:
         snip = db.query().filter_by(id=id).first()
         if snip is None:

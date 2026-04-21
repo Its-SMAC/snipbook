@@ -1,9 +1,9 @@
 from sqlalchemy import ForeignKey, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from backend.db.schemas.comment.comment_schema import Comment
-from backend.db.schemas.user.user_schema import User
-from db.db import Base
+from backend.app.db.schemas.comment.comment_schema import Comment
+from backend.app.db.schemas.user.user_schema import User
+from backend.app.db.db import Base
 
 
 class Snip(Base):

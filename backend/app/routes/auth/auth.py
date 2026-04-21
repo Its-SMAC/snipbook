@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 
 from backend.app.routes.auth.schema import LoginRequest
-from backend.db.db import get_db
+from backend.app.db.db import get_db
 
 from .utils import get_user, verify_password
 
