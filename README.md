@@ -6,7 +6,7 @@ A simple local web application to save and manage code snippets.
 
 ## About the Project
 
-This project was inspired by Pastebin[https://pastebin.com/] , but aims to provide useful features for developers who want to quickly store and share reusable code.
+This project was inspired by [Pastebin](https://pastebin.com/) , but aims to provide useful features for developers who want to quickly store and share reusable code.
 
 ## Features
 
