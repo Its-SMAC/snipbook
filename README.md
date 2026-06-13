@@ -2,7 +2,8 @@
 
 A simple local web application to save and manage code snippets.
 
-**Development is on hold for now.**
+> [!NOTE]
+> **Development is on hold for now.**
 
 ## About the Project
 
