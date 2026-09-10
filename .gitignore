@@ -1,5 +1,3 @@
-# PYTHON
-
 # Environments
 .env
 .envrc
@@ -10,48 +8,22 @@ ENV/
 env.bak/
 venv.bak/
 
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[codz]
-*$py.class
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
 
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
+# Test binary, built with `go test -c`
+*.test
 
-# Unit test / coverage reports
-htmlcov/
-.tox/
-.nox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-*.py.cover
-.hypothesis/
-.pytest_cache/
-cover/
+# Code coverage profiles and other test artifacts
+*.out
+coverage.*
+*.coverprofile
+profile.cov
 
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
-
-node_modules
-dist
-dist-ssr
-*.local
-
-
-# Excalidraw
-*.excalidraw
-*.excalidraw.json
-
-# V2 features
-comment/
+# Go workspace file
+go.work
+go.work.sum
