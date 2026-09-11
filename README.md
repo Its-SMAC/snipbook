@@ -37,4 +37,4 @@ This idea was born from a need. When I was searching for code to help me with my
 | -------- | -------------------- |
 | Backend  | Golang (Chi)         |
 | Frontend | HTMX                 |
-| Database | Neon (Postgres)      |
+| Database | Postgres (Neon)      |
